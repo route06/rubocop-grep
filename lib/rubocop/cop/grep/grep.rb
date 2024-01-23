@@ -43,8 +43,10 @@ module RuboCop
         end
 
         private def in_comment?(m)
-          line = position_from_matchdata(m)[:line]
-          processed_source.comments.any? { |c| c.loc.line == line }
+          pos = position_from_matchdata(m)
+          processed_source.comments.any? do |c|
+            c.loc.line == pos[:line] && c.loc.expression.begin_pos <= pos[:column]
+          end
         end
 
         private def regexp_option(rule)
