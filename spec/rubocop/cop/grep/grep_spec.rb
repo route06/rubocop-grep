@@ -36,6 +36,32 @@ RSpec.describe RuboCop::Cop::Grep::Grep, :config do
         # foo
       RUBY
     end
+
+    it 'registers an offence even if the line includes a end-of-line # comment' do
+      expect_offense(<<~RUBY)
+        foo bar # comment
+        ^^^ foo is bad
+      RUBY
+    end
+
+    it 'does not register an offence when `# rubocop:disable`' do
+      expect_no_offenses(<<~RUBY)
+        foo bar # rubocop:disable all
+      RUBY
+    end
+
+    it 'does not register an offence when `# rubocop:disable Grep/Grep`' do
+      expect_no_offenses(<<~RUBY)
+        foo bar # rubocop:disable Grep/Grep
+      RUBY
+    end
+
+    it 'registers an offence `# rubocop:disable` is irrelevant one' do
+      expect_offense(<<~RUBY)
+        foo bar # rubocop:disable Foo/Bar
+        ^^^ foo is bad
+      RUBY
+    end
   end
 
   context 'with a config including multiple rules' do

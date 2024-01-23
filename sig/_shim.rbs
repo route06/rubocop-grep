@@ -1,0 +1,11 @@
+module Parser
+  module Source
+    class Map
+      def expression: () -> Parser::Source::Range
+    end
+
+    class Range
+      def begin_pos: () -> Integer
+    end
+  end
+end
