@@ -27,7 +27,11 @@ module RuboCop
           length: Integer,
         }
 
-        private def in_comment?: (MatchData) -> bool
+        private def in_comment?: ({
+          line: Integer,
+          column: Integer,
+          length: Integer,
+        }) -> bool
 
         private def regexp_option: (rule) -> Integer
 

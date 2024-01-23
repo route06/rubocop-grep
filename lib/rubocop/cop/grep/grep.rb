@@ -21,8 +21,8 @@ module RuboCop
               re = Regexp.new(pat, opt)
               from = 0
               while m = re.match(source, from)
-                if match_comment || !in_comment?(m)
-                  pos = position_from_matchdata(m)
+                pos = position_from_matchdata(m)
+                if match_comment || !in_comment?(pos)
                   range = source_range(processed_source.buffer, pos[:line], pos[:column], pos[:length])
                   add_offense(range, message: rule['Message'])
                 end
@@ -42,8 +42,7 @@ module RuboCop
           { line: line, column: column, length: length }
         end
 
-        private def in_comment?(m)
-          pos = position_from_matchdata(m)
+        private def in_comment?(pos)
           processed_source.comments.any? do |c|
             c.loc.line == pos[:line] && c.loc.expression.begin_pos <= pos[:column]
           end
