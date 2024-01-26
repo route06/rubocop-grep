@@ -3,7 +3,6 @@ name: Ruby
 on:
   push:
     branches:
-      - master
       - dev
 
   pull_request:
@@ -16,6 +15,7 @@ jobs:
       matrix:
         ruby:
           - '3.2'
+          - '3.3'
           - 'head'
 
     steps:
