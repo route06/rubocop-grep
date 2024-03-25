@@ -3,4 +3,5 @@
 Grep/Grep:
   Description: 'It is a RuboCop extension to define your own cop with regexps.'
   Enabled: true
+  Rules: []
   VersionAdded: '0.1'
